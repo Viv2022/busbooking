@@ -17,10 +17,10 @@ function send_link($email){
   $mail->Port = 465;
   $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
   $mail->SMTPAuth = true;
-  $mail->Username = 'iit2021158@iiita.ac.in';
-  $mail->Password = 'Ansh@4321#@#';
-  $mail->setFrom('iit2021158@iiita.ac.in', 'Ansh Agrawal');
-  $mail->addReplyTo('iit2021158@iiita.ac.in', 'Ansh Agrawal');
+  $mail->Username = 'your email';
+  $mail->Password = 'email password';
+  $mail->setFrom('email', 'email user name');
+  $mail->addReplyTo('email', 'email user name');
   $mail->addAddress($email);
   $mail->isHTML(true);
 

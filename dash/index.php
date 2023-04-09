@@ -8,6 +8,7 @@ if(!isset($_SESSION['loggedIn']) && !$_SESSION['loggedIn']){
 <?php 
 require ('../authentication/connection.php');
 $enroll = $_SESSION['displayname'];
+$role= $_SESSION['role'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +55,7 @@ $enroll = $_SESSION['displayname'];
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="../view/view.php">
                         <span class="icon">
                             <ion-icon name="eye"></ion-icon>
                         </span>
@@ -63,7 +64,7 @@ $enroll = $_SESSION['displayname'];
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="../cancel/cancel.php">
                         <span class="icon">
                             <ion-icon name="ban-outline"></ion-icon>
                         </span>
@@ -102,10 +103,16 @@ $enroll = $_SESSION['displayname'];
             </div>
 
             <!-- ======================= Cards ================== -->
+            <?php
+            // Assuming you have already established a database connection
+            $query = "SELECT COUNT(*) FROM bus WHERE role='$role'";
+            $result = mysqli_query($conn, $query);
+            $count = mysqli_fetch_array($result)[0];
+            ?>
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">5</div>
+                        <div class="numbers"><?php echo $count; ?></div>
                         <div class="cardName">Buses Available</div>
                     </div>
 
@@ -121,7 +128,7 @@ $enroll = $_SESSION['displayname'];
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Recent Travels</h2>
+                        <h2>Recent Bookings</h2>
                     </div>
 
                     <table>
