@@ -10,13 +10,13 @@
 	<body>
 		<div class="container" id="container">
 			<div class="form-container sign-up-container">
-				<form action="#">
+				<form name="f1" action="authentication/authentication.php" method= "POST">
 					<h1>Faculty Sign In</h1>
 					<br><br>
-					<input type="text" id="user" placeholder="User Name" />
-					<input type="password" id"pass" placeholder="Password" />
+					<input type="text" id="user" name="user" placeholder="User Name" />
+					<input type="password" id="pass" name="pass" placeholder="Password" />
 					<a href="#">Forgot your password?</a>	
-					<button>Sign In</button>
+					<button type="submit" id="btn">Sign In</button>
 					<p>New ? <a href="#">Create an account</a></p>
 				</form>
 	</div>

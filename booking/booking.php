@@ -9,11 +9,12 @@ if(!isset($_SESSION['loggedIn']) && !$_SESSION['loggedIn']) {
 <?php 
 require ('../authentication/connection.php');
 $enroll = $_SESSION['displayname'];
+$role= $_SESSION['role'];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+   <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +24,7 @@ $enroll = $_SESSION['displayname'];
         <link rel="stylesheet" href="booking.css">
 
        <!-- =========== Scripts =========  -->
-        <script src="booking.js"></script>
+        
 
         <!-- ====== ionicons ======= -->
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -63,7 +64,7 @@ $enroll = $_SESSION['displayname'];
                     </li>
 
                     <li>
-                        <a href="#">
+                        <a href="../view/view.php">
                             <span class="icon">
                                 <ion-icon name="eye"></ion-icon>
                             </span>
@@ -72,7 +73,7 @@ $enroll = $_SESSION['displayname'];
                     </li>
 
                     <li>
-                        <a href="#">
+                        <a href="../cancel/cancel.php">
                             <span class="icon">
                                 <ion-icon name="ban-outline"></ion-icon>
                             </span>
@@ -114,30 +115,34 @@ $enroll = $_SESSION['displayname'];
                             <thead>
                                 <tr>
                                     <th>Bus ID</th>
-                                    <th>Arrival Time</th>
+                                    <th>Departure from source</th>
                                     <th>Source</th>
+                                    <th>Departure from destination</th>
                                     <th>Destination</th>
                                     <th>Seats</th>
                                     <th>Book</th>
                                 </tr>
                             </thead>
                         <tbody>
-                            <?php
-                            $sql = "SELECT bus.bus_id, bus.Departure_time,route.source, route.destination, bus.seats FROM bus INNER JOIN route ON bus.route_id = route.route_id";
+<?php
+session_start();
+                            $sql = "SELECT bus.bus_id,route.route_id, route.departure_src,route.departure_dst,route.source, route.destination, bus.seats FROM bus INNER JOIN route ON bus.route_id = route.route_id WHERE bus.role='$role'";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                             // Output data of each row
                                 while($row = $result->fetch_assoc()) {
                                     echo "<tr>";
                                     echo "<td>" . $row["bus_id"] . "</td>";
-                                    echo "<td>" . $row["Departure_time"] . "</td>";
+                                    echo "<td>" . $row["departure_src"] . "</td>";
                                     echo "<td>" . $row["source"] . "</td>";
+                                    echo "<td>" . $row["departure_dst"] . "</td>";
                                     echo "<td>" . $row["destination"] . "</td>";
                                     echo "<td>" . $row["seats"] . "</td>";
                                     echo "<td>
                                     <form action='booking_ticket.php' method='POST'>
                                     <input type='hidden' name='bus_id' value='" . $row["bus_id"] . "'>
-                                    <input type='hidden' name='departure_time' value='" . $row["Departure_time"] . "'>
+                                    <input type='hidden' name='user' value='" . $row["seats"] . "'>
+                                    <input type='hidden' name='route_id' value='" . $row["route_id"] . "'>
                                     <button type='submit'>Book</button>
                                     </form>                                    
                                     </td>";
@@ -152,5 +157,6 @@ $enroll = $_SESSION['displayname'];
                 </div>
             </div>
         </div>
+<script src="booking.js"></script>
    </body>
 </html>
