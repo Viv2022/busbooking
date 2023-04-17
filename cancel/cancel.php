@@ -9,6 +9,8 @@ require('../authentication/connection.php');
 $enroll = $_SESSION['displayname'];
 $usernow= $_SESSION['usernow'];
 $role = $_SESSION['role'];
+$current_date = date("Y-m-d"); 
+
 ?>
 
 <!DOCTYPE html>
@@ -111,10 +113,10 @@ $role = $_SESSION['role'];
              $ticket_id = $_SESSION['ticket_id'];
            
 if($role=='student'){
-$sql = "SELECT student_ticket.bus_id, student_ticket.date, route.departure_src, route.departure_dst, route.source, route.destination FROM student_ticket INNER JOIN route ON student_ticket.route_id = route.route_id";
+$sql = "SELECT student_ticket.date,student_ticket.bus_id, student_ticket.date, route.departure_src, route.departure_dst, route.source, route.destination FROM student_ticket INNER JOIN route ON student_ticket.route_id = route.route_id";
 }
 else if($role=='faculty'){
-$sql = "SELECT faculty_ticket.bus_id, faculty_ticket.date, route.departure_src, route.departure_dst, route.source, route.destination FROM faculty_ticket INNER JOIN route ON faculty_ticket.route_id = route.route_id";
+$sql = "SELECT faculty_ticket.date,faculty_ticket.bus_id, faculty_ticket.date, route.departure_src, route.departure_dst, route.source, route.destination FROM faculty_ticket INNER JOIN route ON faculty_ticket.route_id = route.route_id";
 }
             $result = $conn->query($sql);
 
@@ -141,10 +143,9 @@ $sql = "SELECT faculty_ticket.bus_id, faculty_ticket.date, route.departure_src, 
                     <input type='hidden' name='bus_id' value='{$bus_id}'>
                     <button type='submit'>Cancel</button></div>
                     </form>";
-
-
+               
             } else {
-                echo "<p>No ticket found</p>";
+                echo "<p>No ticket booked for today</p>";
             }
             $conn->close();
             ?>

@@ -15,9 +15,10 @@
 					<br><br>
 					<input type="text" id="user" name="user" placeholder="User Name" />
 					<input type="password" id="pass" name="pass" placeholder="Password" />
-					<a href="#">Forgot your password?</a>	
+					<input type="hidden" id="role" name="role" value="faculty"/>
+					<a href="forget_pass/verify/verify.html">Forgot your password?</a>	
 					<button type="submit" id="btn">Sign In</button>
-					<p>New ? <a href="#">Create an account</a></p>
+					<p>New ? <a href="register/verify/verify.html">Create an account</a></p>
 				</form>
 	</div>
 	<div class="form-container sign-in-container">
@@ -26,9 +27,10 @@
 			<br><br>
 			<input type="text" id="user" name="user" placeholder="User Name" />
 			<input type="password" id="pass" name="pass" placeholder="Password" />
-			<a href="#">Forgot your password?</a>
+			<input type="hidden" id="role" name="role" value="student"/>
+			<a href="forget_pass/verify/verify.html">Forgot your password?</a>
 			<button type="submit" id="btn">Sign In</button>
-			<p>New ? <a href="signup/verify.html">Create an account</a></p>
+			<p>New ? <a href="register/verify/verify.html">Create an account</a></p>
 		</form>
 	</div>
 	<div class="overlay-container">
