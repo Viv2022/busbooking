@@ -9,6 +9,16 @@ if(!isset($_SESSION['loggedIn']) && !$_SESSION['loggedIn']){
 require ('../authentication/connection.php');
 $enroll = $_SESSION['displayname'];
 $role= $_SESSION['role'];
+if ($role == "student") {
+  $table_name = "student_ticket";
+  $id_name = "student_id";
+} elseif ($role == "faculty") {
+  $table_name = "faculty_ticket";
+  $id_name = "faculty_id";
+}
+$one_week_ago = date("Y-m-d", strtotime("-1 week"));
+$user_id = $_SESSION['usernow'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,6 +135,7 @@ $role= $_SESSION['role'];
             </div>
 
             <!-- ================ Order Details List ================= -->
+
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
@@ -134,35 +145,31 @@ $role= $_SESSION['role'];
                     <table>
                         <thead>
                             <tr>
-                                <td>Date</td>
+                                <td>Ticket Id</td>
                                 <td>Source</td>
                                 <td>Destination</td>
-                                <td>Time</td>
+                                <td>Date</td>
                             </tr>
                         </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>01-01-2023</td>
-                                <td>IITA</td>
-                                <td>Civil Line</td>
-                                <td>6:00 Pm</td>
-                            </tr>
-
-                            <tr>
-                                <td>15-01-2023</td>
-                                <td>IITA</td>
-                                <td>Railway Station</td>
-                                <td>5:00pm</td>
-                            </tr>
-
-                            <tr>
-                                <td>02-02-2023</td>
-                                <td>IITA</td>
-                                <td>Civil Line</td>
-                                <td>6:00 Pm</td>
-                            </tr>
-                        </tbody>
+<tbody>
+<?php
+            $sql = "SELECT * FROM $table_name WHERE $id_name ='$user_id' AND date >= '$one_week_ago'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $sql2= "SELECT * FROM route WHERE route_id='".$row["route_id"]."'";
+                    $result2=$conn->query($sql2);
+                    $row1 = mysqli_fetch_array($result2, MYSQLI_ASSOC); 
+                    $source=$row1['source'];
+                    $destination=$row1['destination']; 
+    echo "<tr><td>" . $row["ticket_id"] . "</td><td> $source</td><td>$destination</td><td>" . $row["date"] . "</td></tr>";
+  }
+} else {
+  echo "<tr><td colspan='4'>No bookings found.</td></tr>";
+}
+echo "</table>";
+?>
+               </tbody>         
                     </table>
                 </div>
 

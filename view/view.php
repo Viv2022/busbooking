@@ -8,6 +8,8 @@ if(!isset($_SESSION['loggedIn']) || !$_SESSION['loggedIn']) {
 require('../authentication/connection.php');
 $enroll = $_SESSION['displayname'];
 $role = $_SESSION['role'];
+$current_date = date("Y-m-d");
+ $ticket_i = $_SESSION['ticket_id'];
 ?>
 
 <!DOCTYPE html>
@@ -106,25 +108,28 @@ $role = $_SESSION['role'];
     </div>
     <div class="cardBox">
         <div class="card">
-            <?php
-            $ticket_id = $_SESSION['ticket_id'];
+<?php
+           
            
 if($role=='student'){
-    $sql = "SELECT student_ticket.bus_id, student_ticket.date, route.departure_src, route.departure_dst, route.source, route.destination FROM student_ticket INNER JOIN route ON student_ticket.route_id = route.route_id";
+    $sql = "SELECT student_ticket.date,student_ticket.bus_id, student_ticket.ticket_id, route.departure_src, route.departure_dst, route.source, route.destination FROM student_ticket INNER JOIN route ON student_ticket.route_id = route.route_id";
 }
 else if($role=='faculty'){
-    $sql = "SELECT faculty_ticket.bus_id, faculty_ticket.date, route.departure_src, route.departure_dst, route.source, route.destination FROM faculty_ticket INNER JOIN route ON faculty_ticket.route_id = route.route_id";
+    $sql = "SELECT faculty_ticket.date,faculty_ticket.bus_id, faculty_ticket.date, route.departure_src, route.departure_dst, route.source, route.destination FROM faculty_ticket INNER JOIN route ON faculty_ticket.route_id = route.route_id";
 }
             $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
+if ($result->num_rows > 0) {
+    
+    $row = $result->fetch_assoc();
+   // $date=$row["date"];
+    //echo $date;
+    echo $ticket_i;
                 $bus_id = $row["bus_id"];
                 $departure_src = $row["departure_src"];
                 $departure_dst = $row["departure_dst"];
                 $source = $row["source"];
                 $destination = $row["destination"];
-
+                
                 echo '<div class="numbers">Ticket Information</div>';
                 echo '<div class="cardName"><b>Ticket ID:</b> '.$ticket_id.'</div>';
                 echo '<div class="cardName"><b>Bus ID:</b> '.$bus_id.'</div>';
@@ -133,8 +138,9 @@ else if($role=='faculty'){
                 echo '<div class="cardName"><b>Destination:</b> '.$destination.'</div>';
                 echo '<div class="cardName"><b>Departure Time From Destination:</b> '.$departure_dst.'</div>';
 
-            } else {
-                echo "<p>No ticket found</p>";
+               
+            }else {
+                echo "<p>No ticket booked for today</p>";
             }
             $conn->close();
             ?>

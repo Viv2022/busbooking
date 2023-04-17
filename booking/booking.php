@@ -22,7 +22,6 @@ $role= $_SESSION['role'];
 
         <!-- ======= Styles ====== -->
         <link rel="stylesheet" href="booking.css">
-
        <!-- =========== Scripts =========  -->
         
 
