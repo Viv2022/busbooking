@@ -13,7 +13,11 @@ function validateForm() {
   if(name.length===0){
     document.getElementById('name-error').innerHTML = 'Enter your name.';
     return false;
+  }else  if(numberRegex.test(name)) {
+    document.getElementById('name-error').innerHTML = 'Error: Name should not contain numbers';
+    return false;
   }
+  
   else{
     document.getElementById('name-error').innerHTML = '';
   }

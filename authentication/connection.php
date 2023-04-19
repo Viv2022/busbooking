@@ -1,9 +1,9 @@
 <?php      
     $host = "localhost";  
 
-    $user = "username";  
-    $password = 'your password';  
-    $db_name = "busbooking2";  
+    $user = "root";  
+    $password = '';  
+    $db_name = "busbooking";  
     
     $conn = mysqli_connect($host, $user, $password, $db_name);  
     if(mysqli_connect_errno()) {  

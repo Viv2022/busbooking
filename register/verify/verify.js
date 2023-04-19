@@ -1,3 +1,8 @@
+function validateendEmail(email) {
+  var pattern = /@iiita\.ac\.in$/;
+  return pattern.test(email);
+}
+
 function validateEmail(str) {
   let button = document.getElementById('button');
   let test =  document.getElementById('test');
@@ -8,7 +13,14 @@ function validateEmail(str) {
      button.disabled = false;
     return;
   } 
-  else {
+  else if (!validateendEmail(str)) {
+    test.removeAttribute('hidden');
+    document.getElementById('test').innerHTML = 'Invalid email format!';
+     button.disabled = false;
+    return;
+  }
+  else
+  {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
@@ -25,3 +37,7 @@ function validateEmail(str) {
     
    }
 }
+
+
+
+

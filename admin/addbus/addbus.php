@@ -150,19 +150,19 @@ include('../../authentication/connection.php');
                                 <tr>
                                 <form action="addbus_add.php"  method="POST">
                                     <td>
-                                        <input type="number" id="bus_id" name="bus_id" placeholder="Enter BUS ID" />
+                                        <input type="number" id="bus_id" name="bus_id" placeholder="Enter BUS ID"  min="0" step="1"/>
                                     </td>
                                     <td>
                                         <input type="text" id="role" name="role" placeholder="Enter BUS Role" />
                                     </td>
                                     <td>
-                                        <input type="number" id="route_id" name="route_id" placeholder="Enter Route ID"/>
+                                        <input type="number" id="route_id" name="route_id" placeholder="Enter Route ID" min="0" step="1"/>
                                     </td>
                                     <td>
-                                        <input type="number" id="seats" name="seats" placeholder="Enter Total Seats"/>
+                                        <input type="number" id="seats" name="seats" placeholder="Enter Total Seats" min="0" step="1"/>
                                     </td>
                                     <td>
-                                        <input type="number" id="driver_id" name="driver_id" placeholder="Enter Driver ID"/>
+                                        <input type="number" id="driver_id" name="driver_id" placeholder="Enter Driver ID" min="0" step="1"/>
                                     </td> 
                                     <td> 
                                         <button type="submit">ADD</button>                                       
